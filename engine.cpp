@@ -12,19 +12,21 @@
 #include <mutex>
 #include <iomanip>
 #include "convertjson.h"
+#include <invertedindex.h>
+#include <searchserver.h>
 // #include "gtest/gtest.h"
 
 using namespace std;
 mutex Index;
 
-struct Entry
-{
-  size_t doc_id, count;
-  bool operator==(const Entry &other) const
-  {
-    return (doc_id == other.doc_id && count == other.count);
-  }
-};
+// struct Entry
+// {
+//   size_t doc_id, count;
+//   bool operator==(const Entry &other) const
+//   {
+//     return (doc_id == other.doc_id && count == other.count);
+//   }
+// };
 
 // struct RelativeIndex
 // {
@@ -35,20 +37,20 @@ struct Entry
 //     return (doc_id == other.doc_id && rank == other.rank);
 //   }
 // };
-struct compare
-{
-  bool operator()(const RelativeIndex &relative_index1, const RelativeIndex &relative_index2)
-  {
-    if (relative_index1.rank == relative_index2.rank)
-    {
-      return relative_index1.doc_id < relative_index2.doc_id;
-    }
-    else
-    {
-      return relative_index1.rank > relative_index2.rank;
-    }
-  }
-};
+// struct compare
+// {
+//   bool operator()(const RelativeIndex &relative_index1, const RelativeIndex &relative_index2)
+//   {
+//     if (relative_index1.rank == relative_index2.rank)
+//     {
+//       return relative_index1.doc_id < relative_index2.doc_id;
+//     }
+//     else
+//     {
+//       return relative_index1.rank > relative_index2.rank;
+//     }
+//   }
+// };
 /*
 class ConverterJSON
 {
@@ -151,216 +153,217 @@ public:
   }
 };
 */
-class InvertedIndex
-{
-private:
-  vector<string> docs;                        // список содержимого документов
-  map<string, vector<Entry>> freq_dictionary; // частотный словарь
 
-public:
-  InvertedIndex() = default;
-  /**
-  * Обновить или заполнить базу документов, по которой будем совершать
-  поиск
-  * @param texts_input содержимое документов
-  */
-  // void UpdateDocumentBase(vector<string> input_docs)
-  vector<string> UpdateDocumentBase(vector<string> input_docs)
-  {
-    for (int i = 0; i < input_docs.size(); ++i)
-    {
-      ifstream texts_input;
-      texts_input.open(input_docs[i]);
-      if (texts_input)
-      {
-        string text;
-        string line;
-        while (getline(texts_input, line))
-        {
-          text += line;
-        }
-        docs.push_back(text);
-        texts_input.close();
-      }
-      else
-      {
-        cout << "File " << input_docs[i] << " doesn't exist" << endl;
-      }
-    }
-    return docs;
-  }
-  void Indexation(string str, size_t i)
-  {
+// class InvertedIndex
+// {
+// private:
+//   vector<string> docs;                        // список содержимого документов
+//   map<string, vector<Entry>> freq_dictionary; // частотный словарь
 
-    lock_guard<mutex> lock(Index);
-    istringstream ss(str);
-    string word;
+// public:
+//   InvertedIndex() = default;
+//   /**
+//   * Обновить или заполнить базу документов, по которой будем совершать
+//   поиск
+//   * @param texts_input содержимое документов
+//   */
+//   // void UpdateDocumentBase(vector<string> input_docs)
+//   vector<string> UpdateDocumentBase(vector<string> input_docs)
+//   {
+//     for (int i = 0; i < input_docs.size(); ++i)
+//     {
+//       ifstream texts_input;
+//       texts_input.open(input_docs[i]);
+//       if (texts_input)
+//       {
+//         string text;
+//         string line;
+//         while (getline(texts_input, line))
+//         {
+//           text += line;
+//         }
+//         docs.push_back(text);
+//         texts_input.close();
+//       }
+//       else
+//       {
+//         cout << "File " << input_docs[i] << " doesn't exist" << endl;
+//       }
+//     }
+//     return docs;
+//   }
+//   void Indexation(string str, size_t i)
+//   {
 
-    while (ss >> word)
-    {
-      if (freq_dictionary.contains(word))
-      {
+//     lock_guard<mutex> lock(Index);
+//     istringstream ss(str);
+//     string word;
 
-        for (auto a : freq_dictionary[word])
-        {
+//     while (ss >> word)
+//     {
+//       if (freq_dictionary.contains(word))
+//       {
 
-          if ((freq_dictionary[word].at(freq_dictionary[word].size() - 1)).doc_id == i)
-          {
+//         for (auto a : freq_dictionary[word])
+//         {
 
-            (freq_dictionary[word].at(freq_dictionary[word].size() - 1)).count += 1;
-            break;
-          }
-          else
-          {
-            freq_dictionary[word].push_back({i, 1});
-            break;
-          }
-        }
-      }
-      else
-      {
-        freq_dictionary[word].push_back({i, 1});
-      }
-    }
+//           if ((freq_dictionary[word].at(freq_dictionary[word].size() - 1)).doc_id == i)
+//           {
 
-    // for(auto it:freq_dictionary)
-    // {
-    // cout<<"index "<<"["<<it.first<<"] = ";
-    // for(auto a: it.second)
-    //{
-    // cout<<"{"<<a.doc_id<<","<<a.count<<"}"<<endl;
-    // }
-    //}
-  }
-  // end function UpdateDocumentBase
+//             (freq_dictionary[word].at(freq_dictionary[word].size() - 1)).count += 1;
+//             break;
+//           }
+//           else
+//           {
+//             freq_dictionary[word].push_back({i, 1});
+//             break;
+//           }
+//         }
+//       }
+//       else
+//       {
+//         freq_dictionary[word].push_back({i, 1});
+//       }
+//     }
 
-  vector<Entry> GetWordCount(const string &word)
-  {
-    vector<Entry> WordCount;
-    if (freq_dictionary.contains(word))
-    {
-      WordCount = freq_dictionary.at(word);
-    }
-    return WordCount;
-  }
-};
+//     // for(auto it:freq_dictionary)
+//     // {
+//     // cout<<"index "<<"["<<it.first<<"] = ";
+//     // for(auto a: it.second)
+//     //{
+//     // cout<<"{"<<a.doc_id<<","<<a.count<<"}"<<endl;
+//     // }
+//     //}
+//   }
+//   // end function UpdateDocumentBase
 
-class SearchServer
-{
+//   vector<Entry> GetWordCount(const string &word)
+//   {
+//     vector<Entry> WordCount;
+//     if (freq_dictionary.contains(word))
+//     {
+//       WordCount = freq_dictionary.at(word);
+//     }
+//     return WordCount;
+//   }
+// };
 
-private:
-  InvertedIndex _index;
+// class SearchServer
+// {
 
-public:
-  /**
-  * @param idx в конструктор класса передаётся ссылка на класс
-  InvertedIndex,
-  *
-  чтобы SearchServer мог узнать частоту слов встречаемых в
-  запросе
-  */
+// private:
+//   InvertedIndex _index;
 
-  SearchServer(InvertedIndex &idx) : _index(idx){};
-  /**
-  * Метод обработки поисковых запросов
-  * @param queries_input поисковые запросы взятые из файла
-  requests.json
-  * @return возвращает отсортированный список релевантных ответов для
-  заданных запросов
-  */
-  vector<vector<RelativeIndex>> search(const vector<string> &queries_input)
-  {
-    vector<vector<RelativeIndex>> RelevanceIndex;
-    multimap<size_t, string> words_requests;
-    vector<Entry> max_count;
-    size_t maxElement = 0;
-    int flag = 0;
-    vector<size_t> relevance;
-    vector<RelativeIndex> Relatives;
+// public:
+//   /**
+//   * @param idx в конструктор класса передаётся ссылка на класс
+//   InvertedIndex,
+//   *
+//   чтобы SearchServer мог узнать частоту слов встречаемых в
+//   запросе
+//   */
 
-    for (int n = 0; n < queries_input.size(); ++n)
-    {
-      istringstream word(queries_input[n]);
-      string separate_words;
-      while (word >> separate_words)
-      {
-        max_count = _index.GetWordCount(separate_words);
-        for (auto it : max_count)
-        {
-          if (it.count > maxElement)
-          {
-            maxElement = it.count;
-          }
-        }
-        if (maxElement != 0)
-        {
-          words_requests.insert(make_pair(maxElement, separate_words));
-        }
+//   SearchServer(InvertedIndex &idx) : _index(idx){};
+//   /**
+//   * Метод обработки поисковых запросов
+//   * @param queries_input поисковые запросы взятые из файла
+//   requests.json
+//   * @return возвращает отсортированный список релевантных ответов для
+//   заданных запросов
+//   */
+//   vector<vector<RelativeIndex>> search(const vector<string> &queries_input)
+//   {
+//     vector<vector<RelativeIndex>> RelevanceIndex;
+//     multimap<size_t, string> words_requests;
+//     vector<Entry> max_count;
+//     size_t maxElement = 0;
+//     int flag = 0;
+//     vector<size_t> relevance;
+//     vector<RelativeIndex> Relatives;
 
-        maxElement = 0;
-      }
-      // конец цикла перебора слов из каждого запроса
-      max_count.clear();
-      if (words_requests.size() != 0)
-      {
-        for (auto it = words_requests.begin(); it != words_requests.end(); ++it)
-        {
-          max_count = _index.GetWordCount(it->second);
+//     for (int n = 0; n < queries_input.size(); ++n)
+//     {
+//       istringstream word(queries_input[n]);
+//       string separate_words;
+//       while (word >> separate_words)
+//       {
+//         max_count = _index.GetWordCount(separate_words);
+//         for (auto it : max_count)
+//         {
+//           if (it.count > maxElement)
+//           {
+//             maxElement = it.count;
+//           }
+//         }
+//         if (maxElement != 0)
+//         {
+//           words_requests.insert(make_pair(maxElement, separate_words));
+//         }
 
-          for (auto iterator : max_count)
-          {
-            if (Relatives.size() == 0)
-            {
-              Relatives.push_back({RelativeIndex{iterator.doc_id, static_cast<float>(iterator.count)}});
-            }
-            else
-            {
-              flag = 0;
-              for (int i = 0; i < Relatives.size(); ++i)
-              {
+//         maxElement = 0;
+//       }
+//       // конец цикла перебора слов из каждого запроса
+//       max_count.clear();
+//       if (words_requests.size() != 0)
+//       {
+//         for (auto it = words_requests.begin(); it != words_requests.end(); ++it)
+//         {
+//           max_count = _index.GetWordCount(it->second);
 
-                if (iterator.doc_id == Relatives[i].doc_id)
-                {
-                  replace(begin(Relatives), end(Relatives),
-                          (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank)}), (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank + iterator.count)}));
-                  flag = 1;
-                  break;
-                }
-              }
-              if (flag == 0)
-              {
-                Relatives.push_back({RelativeIndex{iterator.doc_id, static_cast<float>(iterator.count)}});
-              }
-            }
-          }
-        }
-        for (int i = 0; i < Relatives.size(); ++i)
-        {
+//           for (auto iterator : max_count)
+//           {
+//             if (Relatives.size() == 0)
+//             {
+//               Relatives.push_back({RelativeIndex{iterator.doc_id, static_cast<float>(iterator.count)}});
+//             }
+//             else
+//             {
+//               flag = 0;
+//               for (int i = 0; i < Relatives.size(); ++i)
+//               {
 
-          if (Relatives[i].rank > maxElement)
-          {
-            maxElement = Relatives[i].rank;
-          }
-        }
+//                 if (iterator.doc_id == Relatives[i].doc_id)
+//                 {
+//                   replace(begin(Relatives), end(Relatives),
+//                           (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank)}), (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank + iterator.count)}));
+//                   flag = 1;
+//                   break;
+//                 }
+//               }
+//               if (flag == 0)
+//               {
+//                 Relatives.push_back({RelativeIndex{iterator.doc_id, static_cast<float>(iterator.count)}});
+//               }
+//             }
+//           }
+//         }
+//         for (int i = 0; i < Relatives.size(); ++i)
+//         {
 
-        for (int i = 0; i < Relatives.size(); ++i)
-        {
+//           if (Relatives[i].rank > maxElement)
+//           {
+//             maxElement = Relatives[i].rank;
+//           }
+//         }
 
-          replace(begin(Relatives), end(Relatives),
-                  (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank)}), (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank / maxElement)}));
-        }
-        sort(Relatives.begin(), Relatives.end(), compare());
-      }
-      RelevanceIndex.push_back(Relatives);
-      maxElement = 0;
-      Relatives.clear();
-      words_requests.clear();
-      max_count.clear();
-    }
+//         for (int i = 0; i < Relatives.size(); ++i)
+//         {
 
-    return RelevanceIndex;
-  };
-};
+//           replace(begin(Relatives), end(Relatives),
+//                   (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank)}), (RelativeIndex{Relatives[i].doc_id, static_cast<float>(Relatives[i].rank / maxElement)}));
+//         }
+//         sort(Relatives.begin(), Relatives.end(), compare());
+//       }
+//       RelevanceIndex.push_back(Relatives);
+//       maxElement = 0;
+//       Relatives.clear();
+//       words_requests.clear();
+//       max_count.clear();
+//     }
+
+//     return RelevanceIndex;
+//   };
+// };
 
 void checkFileExists(const string &filename, const auto &field_name)
 {
