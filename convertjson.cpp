@@ -1,8 +1,8 @@
 #include <vector>
+#include <iostream>
 #include <string>
 #include <fstream>
-#include "convertjson.h"
-// #include <nlohmann/json.hpp>
+#include ``convertjson.h``
 
 using namespace std;
 struct RelativeIndex
@@ -24,7 +24,7 @@ private:
 public:
     ConverterJSON() = default;
 
-    vector<string> GetTextDocuments(const string &file)
+    vector<string> ConverterJSON::GetTextDocuments(const string &file)
     {
         ifstream stream_config(file);
         nlohmann::json Docs;

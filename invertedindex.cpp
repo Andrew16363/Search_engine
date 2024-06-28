@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <invertedindex.h>
+#include "invertedindex.h"
 
 using namespace std;
 
