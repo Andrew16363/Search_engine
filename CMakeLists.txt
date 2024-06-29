@@ -3,7 +3,7 @@ cmake_policy(SET CMP0135 NEW)
 project(search_engine)
 #enable_testing()
 set(CMAKE_CXX_STANDARD 20)
-add_executable(search_engine engine.cpp convertjson.cpp convertjson.h invertedindex.cpp invertedindex.h searchserver.cpp searchserver.h) 
+
 #add_executable(search_engine engine.cpp)
 set(BUILD_CPR_TESTS OFF)
 set(CMAKE_USE_OPENSSL OFF)
@@ -21,6 +21,7 @@ FetchContent_MakeAvailable(json)
 #FetchContent_MakeAvailable(googletest)
 
 #include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+add_executable(search_engine engine.cpp  invertedindex.cpp invertedindex.h convertjson.h convertjson.cpp  searchserver.cpp searchserver.h) 
 
 target_link_libraries(search_engine  PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(search_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

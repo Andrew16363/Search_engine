@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include "convertjson.h"
+#include "invertedindex.h"
 #include <nlohmann/json.hpp>
 
 using namespace std;
