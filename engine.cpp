@@ -2,6 +2,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <memory>
 #include <stack>
 #include <string>
 #include <vector>
@@ -14,10 +15,11 @@
 #include "convertjson.h"
 #include "invertedindex.h"
 #include "searchserver.h"
+
 // #include "gtest/gtest.h"
 
 using namespace std;
-mutex Index;
+// mutex Index;
 
 // struct Entry
 // {
