@@ -413,8 +413,6 @@ int main()
   }
 
   text_docs = Convert.GetTextDocuments("../config.json");
-
-  Convert.GetResponsesLimit("../config.json", field_name);
   words = Convert.GetRequests("../requests.json");
 
   InvertedIndex index_docs;
