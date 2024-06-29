@@ -1,13 +1,13 @@
 {
-    "config": {
+  "config": {
     "name": "MyEngine",
     "version": "0.1",
     "max_responses": 5
-    },
-    "files": [
-    "../resources/file001",
-    "../resources/file002",
-    "../resources/file003",
-    "../resources/file004"    
-   ]
- }
+  },
+  "files": [
+    "../../resources/file001",
+    "../../resources/file002",
+    "../../resources/file003",
+    "../../resources/file004"
+  ]
+}
