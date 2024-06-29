@@ -51,8 +51,8 @@ vector<string> ConverterJSON::GetRequests(const string &file_request)
     return Requests;
 }
 void ConverterJSON::putAnswers(vector<vector<RelativeIndex>> Answers)
-
 {
+    ConverterJSON::GetResponsesLimit("../config.json", "config");
     ofstream recordring_answers("../answers.json");
     nlohmann::ordered_json answers_relevance;
     string doc = "docid";
