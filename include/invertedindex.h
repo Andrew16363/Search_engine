@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#pragma once
+
 using namespace std;
 
 struct Entry

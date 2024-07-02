@@ -4,7 +4,6 @@
 #include <map>
 #include <sstream>
 
-#pragma once
 using namespace std;
 
 struct compare

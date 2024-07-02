@@ -25,6 +25,7 @@ set(MY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 #target_link_libraries(search_engine  PRIVATE nlohmann_json::nlohmann_json)
 
 add_subdirectory(src)
+#add_subdirectory(googletest)
 #target_include_directories(search_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 #target_link_libraries(search_engine PRIVATE gtest_main)
 #include(GoogleTest)

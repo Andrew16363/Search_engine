@@ -3,8 +3,8 @@
 #include <string>
 #include <iostream>
 
-#pragma once
 using namespace std;
+
 struct RelativeIndex
 {
     size_t doc_id;
