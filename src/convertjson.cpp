@@ -9,7 +9,7 @@
 
 using namespace std;
 
-bool RelativeIndex::operator==(RelativeIndex &other) const
+bool RelativeIndex::operator==(const RelativeIndex &other) const
 {
     return (doc_id == other.doc_id && rank == other.rank);
 }

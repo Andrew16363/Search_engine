@@ -1,9 +1,9 @@
-// #include <iostream>
+#include <iostream>
 // // #include <nlohmann/json.hpp>
 // #include <fstream>
 // #include <stack>
 // #include <string>
-// #include <vector>
+#include <vector>
 // #include <filesystem>
 // #include <map>
 // #include <algorithm>
@@ -28,6 +28,7 @@ void TestInvertedIndexFunctionality(
         std::vector<Entry> word_count = idx.GetWordCount(request);
         result.push_back(word_count);
     }
+
     ASSERT_EQ(result, expected);
 }
 TEST(TestCaseInvertedIndex, TestBasic)
@@ -44,7 +45,7 @@ TEST(TestCaseInvertedIndex, TestBasic)
 TEST(TestCaseInvertedIndex, TestBasic2)
 {
     const vector<string> docs = {
-        "milk milk milk milk water water water",
+        "milk milk milk milk water water",
         "milk water water",
         "milk milk milk milk milk water water water water water",
         "americano cappuccino"};
@@ -60,9 +61,12 @@ TEST(TestCaseInvertedIndex, TestInvertedIndexMissingWord)
         "a b c d e f g h i j k l",
         "statement"};
     const vector<string> requests = {"m", "statement"};
-    // const vector<vector<Entry>> expected = {
-    //  {}, {}, {1, 1}};
-    TestInvertedIndexFunctionality(docs, requests, {});
+    const vector<vector<Entry>> expected = {
+        {
+
+        },
+        {{1, 1}}};
+    TestInvertedIndexFunctionality(docs, requests, expected);
 }
 
 TEST(TestCaseSearchServer, TestSimple)
@@ -124,9 +128,4 @@ TEST(TestCaseSearchServer, TestTop5)
     SearchServer srv(idx);
     std::vector<vector<RelativeIndex>> result = srv.search(request);
     ASSERT_EQ(result, expected);
-}
-int main()
-{
-    testing::InitGoogleTest();
-    return RUN_ALL_TESTS();
 }

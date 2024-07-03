@@ -9,7 +9,7 @@ struct RelativeIndex
 {
     size_t doc_id;
     float rank;
-    bool operator==(RelativeIndex &other) const;
+    bool operator==(const RelativeIndex &other) const;
 };
 class ConverterJSON
 {

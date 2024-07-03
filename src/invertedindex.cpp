@@ -40,35 +40,36 @@ vector<string> InvertedIndex::UpdateDocumentBase(vector<string> input_docs)
 }
 void InvertedIndex::Indexation(string str, size_t i)
 {
-
-    lock_guard<mutex> lock(Index);
-    istringstream ss(str);
-    string word;
-
-    while (ss >> word)
     {
-        if (freq_dictionary.contains(word))
-        {
+        lock_guard<mutex> lock(Index);
+        istringstream ss(str);
+        string word;
 
-            for (auto a : freq_dictionary[word])
+        while (ss >> word)
+        {
+            if (freq_dictionary.contains(word))
             {
 
-                if ((freq_dictionary[word].at(freq_dictionary[word].size() - 1)).doc_id == i)
+                for (auto a : freq_dictionary[word])
                 {
 
-                    (freq_dictionary[word].at(freq_dictionary[word].size() - 1)).count += 1;
-                    break;
-                }
-                else
-                {
-                    freq_dictionary[word].push_back({i, 1});
-                    break;
+                    if ((freq_dictionary[word].at(freq_dictionary[word].size() - 1)).doc_id == i)
+                    {
+
+                        (freq_dictionary[word].at(freq_dictionary[word].size() - 1)).count += 1;
+                        break;
+                    }
+                    else
+                    {
+                        freq_dictionary[word].push_back({i, 1});
+                        break;
+                    }
                 }
             }
-        }
-        else
-        {
-            freq_dictionary[word].push_back({i, 1});
+            else
+            {
+                freq_dictionary[word].push_back({i, 1});
+            }
         }
     }
 }
@@ -80,5 +81,6 @@ vector<Entry> InvertedIndex::GetWordCount(const string &word)
     {
         WordCount = freq_dictionary.at(word);
     }
+
     return WordCount;
 }

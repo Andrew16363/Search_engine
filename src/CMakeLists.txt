@@ -8,8 +8,8 @@ set(CMAKE_USE_OPENSSL OFF)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY{$CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY{$CMAKE_BINARY_DIR})
 set(${CMAKE_SOURCE_DIR})
-#set(gtest_disable_pthreads ON)
-#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+set(gtest_disable_pthreads ON)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 include(FetchContent)
 FetchContent_Declare(json URL  https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
 FetchContent_MakeAvailable(json)
@@ -25,16 +25,18 @@ add_executable(search_engine
                     ${MY_INCLUDE_DIR}/searchserver.h                    
                     invertedindex.cpp 
                     convertjson.cpp
-                    searchserver.cpp  
-                    ../googletest/gtest.cpp  
-                                                                       
+                    searchserver.cpp                      
+                     gtest.cpp                                                  
                     ) 
 target_link_libraries(search_engine  PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(search_engine PUBLIC ${MY_INCLUDE_DIR})
 target_include_directories(search_engine PUBLIC ${CMAKE_SOURCE_DIR})
-#target_link_libraries(search_engine PRIVATE gtest_main)
-#include(GoogleTest)
-#gtest_discover_tests(search_engine)
+target_link_libraries(search_engine PRIVATE gtest_main)
+target_link_libraries(gtest PRIVATE gtest_main)
+include(GoogleTest)
+gtest_discover_tests(search_engine)
+
+
 
 
 
