@@ -85,6 +85,7 @@ TEST(ConverterJSON, putAnswers)
         outFile.close();
     }
     Convert_expected.putAnswers(result);
+
     std::ifstream file(answers_file);
     nlohmann::json read_json;
     file >> read_json;
@@ -159,3 +160,4 @@ TEST(ConverterJSON, putAnswers)
         // // Проверка, что содержимое файла соответствует ожидаемому JSON
         // ASSERT_EQ(expected, result) << "Содержимое файла answers.json не соответствует ожидаемому.";
     }
+}
