@@ -18,26 +18,6 @@
 
 using namespace std;
 
-void checkFileExists(const string &filename, const auto &field_name)
-{
-  if (!filesystem::exists(filename))
-  {
-    throw runtime_error("config file is missed");
-  }
-  else
-  {
-    ifstream filecheck(filename);
-    nlohmann::json file;
-    filecheck >> file;
-    filecheck.close();
-    const nlohmann::json &field_value = file[field_name];
-    if (field_value.empty())
-    {
-      throw "config file is empty!!";
-    }
-  }
-}
-
 int main()
 {
   const auto &field_name = "config";
@@ -49,8 +29,7 @@ int main()
   vector<vector<RelativeIndex>> rel_index;
   ConverterJSON Convert;
   cout << "Starting MyEngine..." << endl;
-  checkFileExists("../../config.json", field_name);
-  cout << " config.json is OK! " << endl;
+  Convert.checkFileExists("config.json", field_name);
 
   if (!filesystem::exists(answers_file))
   {
@@ -63,8 +42,8 @@ int main()
     outFile.close();
   }
 
-  text_docs = Convert.GetTextDocuments("../../config.json");
-  words = Convert.GetRequests("../../requests.json");
+  text_docs = Convert.GetTextDocuments("config.json");
+  words = Convert.GetRequests("requests.json");
 
   InvertedIndex index_docs;
   text_files = index_docs.UpdateDocumentBase(text_docs);
@@ -84,7 +63,7 @@ int main()
   rel_index = Server.search(words);
   Convert.putAnswers(rel_index);
 
-  testing::InitGoogleTest();
-  return RUN_ALL_TESTS();
+  // testing::InitGoogleTest();
+  // return RUN_ALL_TESTS();
   return 0;
 }

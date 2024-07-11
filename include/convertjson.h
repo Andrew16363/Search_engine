@@ -20,6 +20,7 @@ private:
 
 public:
     ConverterJSON() = default;
+    void checkFileExists(const string &filename, const string &field_name);
     vector<string> GetTextDocuments(const string &file);
     int GetResponsesLimit(const string &file, const auto &field_name);
     vector<string> GetRequests(const string &file_request);
