@@ -4,7 +4,6 @@ project(search_engine)
 set(CMAKE_CXX_STANDARD 20)
 set(BUILD_CPR_TESTS OFF)
 set(CMAKE_USE_OPENSSL OFF)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY{$CMAKE_BINARY_DIR})
 
 set(Src 
                     engine.cpp 

@@ -26,9 +26,6 @@
             "result": true,
             "docid": 3,
             "rank": 1.0
-        },
-        "request4": {
-            "result": false
         }
     }
 }

@@ -74,17 +74,17 @@ TEST(ConverterJSON, putAnswers)
     vector<vector<RelativeIndex>> result = srv.search(request);
     ASSERT_EQ(expected, result);
 
-    if (!filesystem::exists(answers_file))
-    {
-        ofstream outputFile(answers_file);
-        outputFile.close();
-    }
-    else
-    {
-        ofstream outFile(answers_file, ios::trunc);
-        outFile.close();
-    }
-    Convert_expected.putAnswers(result);
+    // if (!filesystem::exists(answers_file))
+    // {
+    //     ofstream outputFile(answers_file);
+    //     outputFile.close();
+    // }
+    // else
+    // {
+    //     ofstream outFile(answers_file, ios::trunc);
+    //     outFile.close();
+    // }
+    // Convert_expected.putAnswers(result);
     // const vector<string> docs = {
     //     "milk milk milk milk water water water",
     //     "milk water water",
