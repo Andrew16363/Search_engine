@@ -57,7 +57,7 @@ TEST(ConverterJSON, putAnswers)
         "milk water water",
         "milk milk milk milk milk water water water water water",
         "americano cappuccino"};
-    const vector<string> request = {"milk water", "cappuchino"};
+    const vector<string> request = {"milk water", "sugar"};
     const string answers_file = "answers.json";
     vector<vector<RelativeIndex>> expected = {
         {{2, 1},
