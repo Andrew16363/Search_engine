@@ -79,7 +79,7 @@ void ConverterJSON::putAnswers(vector<vector<RelativeIndex>> Answers)
     ofstream recording_answers("answers.json");
     if (!recording_answers.is_open())
     {
-
+        cout << "Файл не найден!" << endl;
         return;
     }
 
