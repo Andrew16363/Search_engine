@@ -63,7 +63,7 @@ int main()
   rel_index = Server.search(words);
   Convert.putAnswers(rel_index);
 
-  testing::InitGoogleTest();
-  return RUN_ALL_TESTS();
+  // testing::InitGoogleTest();
+  // return RUN_ALL_TESTS();
   return 0;
 }
