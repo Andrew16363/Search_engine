@@ -4,6 +4,7 @@ project(search_engine)
 set(CMAKE_CXX_STANDARD 20)
 set(BUILD_CPR_TESTS OFF)
 set(CMAKE_USE_OPENSSL OFF)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY{$CMAKE_SOURCE_DIR})
 
 set(Src 
                     engine.cpp 
@@ -11,7 +12,7 @@ set(Src
                     convertjson.cpp
                     searchserver.cpp 
     )
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY{$CMAKE_SOURCE_DIR})
+
 add_executable(search_engine  ${Src} ) 
 target_link_libraries(search_engine  PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(search_engine PUBLIC ${MY_INCLUDE_DIR})
