@@ -116,7 +116,7 @@ void ConverterJSON::putAnswers(vector<vector<RelativeIndex>> Answers)
             answers_relevance["answers"][request]["rank"] = Answers[i][0].rank;
         }
     }
-    assert(!answers_relevance.empty());
+
     recording_answers << answers_relevance.dump(4);
     recording_answers.close();
 }
