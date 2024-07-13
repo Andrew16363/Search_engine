@@ -1,18 +1,12 @@
 {
     "answers": {
         "request1": {
-            "result": true,
-            "relevance": {
-                "docid0": 2,
-                "rank0": 1.0,
-                "docid1": 0,
-                "rank1": 0.699999988079071,
-                "docid2": 1,
-                "rank2": 0.30000001192092896
-            }
+            "result": false
         },
         "request2": {
-            "result": false
+            "result": true,
+            "docid": 1,
+            "rank": 1.0
         }
     }
 }
