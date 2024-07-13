@@ -184,12 +184,12 @@ TEST(ConverterJSON, putAnswers)
 
     Convert_expected.putAnswers(result);
 
-    // std::ifstream file(answers_file);
-    // nlohmann::json read_json;
-    // file >> read_json;
-    // file.close();
+    std::ifstream file(answers_file);
+    nlohmann::json read_json;
+    file >> read_json;
+    file.close();
 
-    // ASSERT_FALSE(read_json.empty());
+    ASSERT_FALSE(read_json.empty());
 
     // for (size_t i = 0; i < expected.size(); ++i)
     // {
