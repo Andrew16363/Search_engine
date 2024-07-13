@@ -190,7 +190,7 @@ TEST(ConverterJSON, putAnswers)
     file.close();
 
     // ASSERT_FALSE(read_json.empty());
-    ASSERT_EQ(read_json, Convert_expected.putAnswers(result));
+    ASSERT_EQ(read_json, answers_file);
 
     // for (size_t i = 0; i < expected.size(); ++i)
     // {
