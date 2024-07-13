@@ -168,7 +168,7 @@ TEST(ConverterJSON, putAnswers)
         "milk water water",
         "milk milk milk milk milk water water water water water",
         "americano cappuccino"};
-    const std::vector<std::string> request = {"milk water", "sugar"};
+    const std::vector<std::string> request = {"milk water", "sugar", "cap"};
     const std::string answers_file = "answers.json";
     std::vector<std::vector<RelativeIndex>> expected = {
         {{2, 1},
@@ -181,7 +181,7 @@ TEST(ConverterJSON, putAnswers)
     {
 
         idx.Indexation(docs[i], i);
-        this_thread::sleep_for(std::chrono::seconds(3));
+        this_thread::sleep_for(std::chrono::seconds(2));
     }
     SearchServer srv(idx);
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
