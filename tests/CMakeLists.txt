@@ -16,11 +16,8 @@ set(TestsFiles
 ) 
 
 add_executable(GtestTests ${TestsFiles} ${SrcFiles})
-#target_link_libraries(GtestTests nlohmann_json::nlohmann_json Gtest::gtest_main)
 target_link_libraries(GtestTests  PRIVATE nlohmann_json::nlohmann_json)
-#target_link_libraries(GtestTests GTest::gtest GTest::gtest_main)
 target_link_libraries(GtestTests   PUBLIC gtest gtest_main)
-#target_link_libraries(your_test_target ${GTEST_BOTH_LIBRARIES} pthread)
 include(GoogleTest)
 target_include_directories(GtestTests PUBLIC ${MY_INCLUDE_DIR})
 gtest_discover_tests(GtestTests)

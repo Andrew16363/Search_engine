@@ -1,0 +1,12 @@
+{
+    "answers": {
+        "request1": {
+            "result": false
+        },
+        "request2": {
+            "result": true,
+            "docid": 1,
+            "rank": 1.0
+        }
+    }
+}
