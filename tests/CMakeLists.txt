@@ -11,7 +11,7 @@ set(SrcFiles
 set(TestsFiles
 	convertjson_test.cpp
 	invertedindex_test.cpp
-	searchserver_test.cpp 
+	searchserver_test.cpp 	
 ) 
 
 add_executable(GtestTests ${TestsFiles} ${SrcFiles})
