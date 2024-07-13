@@ -2,8 +2,6 @@
     "requests": [
         "milk",
         "water",
-        "cappuchino",
-        "car",
-        "cap"
+        "cappuchino"
     ]
 }
