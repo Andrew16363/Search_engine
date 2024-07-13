@@ -75,7 +75,7 @@ vector<string> ConverterJSON::GetRequests(const string &file_request)
 }
 void ConverterJSON::putAnswers(vector<vector<RelativeIndex>> Answers)
 {
-    ConverterJSON::GetResponsesLimit("config.json", "config");
+    ConverterJSON::GetResponsesLimit("../config.json", "config");
     ofstream recording_answers("answers.json");
     if (!recording_answers.is_open())
     {
