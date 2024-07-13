@@ -185,7 +185,7 @@ TEST(ConverterJSON, putAnswers)
     }
     SearchServer srv(idx);
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
-
+    EXPECT_EQ(expected, result);
     Convert_expected.putAnswers(result);
 
     std::ifstream file(answers_file);
