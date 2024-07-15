@@ -11,9 +11,9 @@
 #include <thread>
 #include <mutex>
 #include <iomanip>
-#include "../include/convertjson.h"
-#include "../include/invertedindex.h"
-#include "../include/searchserver.h"
+#include "convertjson.h"
+#include "invertedindex.h"
+#include "searchserver.h"
 #include "gtest/gtest.h"
 
 using namespace std;
@@ -63,5 +63,5 @@ int main()
   rel_index = Server.search(words);
   Convert.putAnswers(rel_index);
 
-    return 0;
+  return 0;
 }
