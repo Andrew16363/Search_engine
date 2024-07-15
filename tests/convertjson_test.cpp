@@ -68,7 +68,7 @@ TEST(ConverterJSON, putAnswers)
     {
 
         idx.Indexation(docs[i], i);
-        this_thread::sleep_for(std::chrono::seconds(3));
+        this_thread::sleep_for(std::chrono::seconds(1));
     }
     SearchServer srv(idx);
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
