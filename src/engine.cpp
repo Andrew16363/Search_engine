@@ -50,7 +50,8 @@ int main()
   for (int i = 0; i < text_files.size(); i++)
   {
 
-    threads_files.emplace_back(bind(&InvertedIndex::Indexation, &index_docs, text_files[i], i));
+    threads_files.emplace_back([&index_docs, &text_files, i]
+                               { index_docs.Indexation(text_files[i], i); });
   }
 
   for (auto &thread : threads_files)
