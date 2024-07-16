@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <mutex>
-#include "include/invertedindex.h"
+#include "invertedindex.h"
 
 using namespace std;
 mutex Index;
