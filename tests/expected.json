@@ -7,6 +7,9 @@
             "result": true,
             "docid": 1,
             "rank": 1.0
+        },
+        "request3": {
+            "result": false
         }
     }
 }

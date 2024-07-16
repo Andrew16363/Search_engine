@@ -1,6 +1,6 @@
-#include "../include/convertjson.h"
-#include "../include/invertedindex.h"
-#include "../include/searchserver.h"
+#include "convertjson.h"
+#include "invertedindex.h"
+#include "searchserver.h"
 #include "gtest/gtest.h"
 
 TEST(SearchServer, search)

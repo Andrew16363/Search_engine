@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../include/invertedindex.h"
+#include "invertedindex.h"
 #include "gtest/gtest.h"
 
 TEST(InvertedIndex, updateDocumentBase)

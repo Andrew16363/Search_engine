@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.18)
 cmake_policy(SET CMP0135 NEW)
 project(GtestTests)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+set(MY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(SrcFiles
 	${MY_SRC_DIR}/invertedindex.cpp
 	${MY_SRC_DIR}/searchserver.cpp

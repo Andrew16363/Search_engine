@@ -1,6 +1,6 @@
-#include "../include/convertjson.h"
-#include "../include/invertedindex.h"
-#include "../include/searchserver.h"
+#include "convertjson.h"
+#include "invertedindex.h"
+#include "searchserver.h"
 #include <vector>
 #include "gtest/gtest.h"
 #include <filesystem>
@@ -58,10 +58,10 @@ TEST(ConverterJSON, putAnswers)
     const std::vector<std::string> docs = {
         "a b c d e f g h i j k l",
         "statement"};
-    const std::vector<std::string> request = {"m", "statement"};
+    const std::vector<std::string> request = {"m", "statement", "car"};
     const std::string answers_file = "answers.json";
     std::vector<std::vector<RelativeIndex>> expected = {
-        {}, {{1, 1}}};
+        {}, {{1, 1}}, {}};
     InvertedIndex idx;
     idx.UpdateDocumentBase(docs);
     for (size_t i = 0; i < docs.size(); ++i)
