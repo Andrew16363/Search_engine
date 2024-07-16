@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 #include <fstream>
-#include "../include/convertjson.h"
-#include "../include/invertedindex.h"
+#include "include/convertjson.h"
+#include "include/invertedindex.h"
 #include <nlohmann/json.hpp>
 
 using namespace std;

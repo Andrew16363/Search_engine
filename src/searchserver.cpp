@@ -1,9 +1,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "../include/invertedindex.h"
-#include "../include/convertjson.h"
-#include "../include/searchserver.h"
+#include "include/invertedindex.h"
+#include "include/convertjson.h"
+#include "include/searchserver.h"
 
 using namespace std;
 

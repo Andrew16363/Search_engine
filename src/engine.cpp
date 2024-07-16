@@ -14,7 +14,6 @@
 #include "convertjson.h"
 #include "invertedindex.h"
 #include "searchserver.h"
-#include "gtest/gtest.h"
 
 using namespace std;
 
